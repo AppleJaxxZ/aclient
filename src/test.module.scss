@@ -1,0 +1,6 @@
+.container {
+  color: red;
+  @include respond(phone) {
+    color: green;
+  }
+}

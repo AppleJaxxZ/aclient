@@ -1,0 +1,135 @@
+$border-radius: 10px;
+.container {
+  height: 100vh;
+  //   background-color: red;
+  width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__inner_container {
+    height: 95vh;
+    width: 100%;
+    background-color: white;
+    border-radius: $border-radius;
+    display: flex;
+
+    //LOGIN
+    &__login_left_side {
+      padding: 55px;
+      border-top-left-radius: $border-radius;
+      border-bottom-left-radius: $border-radius;
+
+      // background-color: red;
+      display: flex;
+      justify-content: center;
+      flex: 1;
+      align-items: center;
+      @include respond(tab-land) {
+        border-radius: $border-radius;
+      }
+
+      &__login {
+        width: 80%;
+        // background-color: blueviolet;
+        @include respond(tab-land) {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          border-radius: $border-radius;
+        }
+        form {
+          // background-color: red;
+          @include respond(tab-land) {
+            width: 50%;
+          }
+          @include respond(phone) {
+            width: 90%;
+          }
+
+          button {
+            margin-top: 30px;
+            width: 100%;
+          }
+        }
+        h1 {
+          font-weight: 800;
+        }
+        p {
+          text-align: left;
+          color: gray;
+          @include respond(tab-land) {
+            text-align: center;
+          }
+
+          span {
+            font-family: 800;
+            color: rgb(255, 0, 34);
+            cursor: pointer;
+          }
+        }
+        &__logo_container {
+          display: flex;
+          align-items: center;
+
+          @include respond(tab-land) {
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            border-radius: $border-radius;
+          }
+
+          img {
+            object-fit: contain;
+            height: 100px;
+            width: 110px;
+          }
+        }
+      }
+    }
+    // PICTURE
+    &__picture_right_side {
+      position: relative;
+      border-top-right-radius: $border-radius;
+      border-bottom-right-radius: $border-radius;
+      flex: 1;
+      img {
+        border-top-right-radius: $border-radius;
+        border-bottom-right-radius: $border-radius;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+
+      h1 {
+        text-align: center;
+        letter-spacing: 0.08rem;
+        // background-color: red;
+        color: white;
+        position: absolute;
+        bottom: 0;
+        top: 81%;
+        left: 50%;
+        transform: translate(-50%, -81%);
+      }
+      h2 {
+        text-align: center;
+        letter-spacing: 0.08rem;
+        // background-color: red;
+        color: white;
+        position: absolute;
+        bottom: 0;
+        top: 90%;
+        left: 50%;
+        transform: translate(-50%, -90%);
+      }
+      // background-color: blue;
+      @include respond(tab-land) {
+        display: none;
+      }
+    }
+  }
+}

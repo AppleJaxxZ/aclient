@@ -1,0 +1,39 @@
+.root {
+  margin-top: 10px;
+  label {
+    margin-left: 5px;
+    font-size: 18px;
+  }
+  &:hover {
+    .controlLabel {
+      color: #6398dbe0;
+    }
+  }
+
+  input,
+  textarea {
+    padding: 15px;
+    margin-top: 5px;
+    outline: 0 none;
+    resize: none;
+    width: 100%;
+    border: 1px solid gray;
+    border-radius: 50px;
+    display: flex;
+
+    &:focus {
+      outline: none;
+      border: 1px solid #6398dbe0;
+    }
+
+    &:hover {
+      outline: none;
+      border: 1px solid #6398dbe0;
+    }
+  }
+
+  .errors {
+    color: red;
+    margin-left: 5px;
+  }
+}

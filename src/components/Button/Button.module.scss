@@ -1,0 +1,24 @@
+.button {
+  background: #96c0f8e0;
+  color: white;
+  height: 48px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.5rem;
+  transition: 350ms ease;
+  padding: 18px 36px;
+  border-radius: 30px;
+
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+  border: none;
+  &:hover,
+  &:focus {
+    background: #4f94eee0;
+
+    border: none;
+    outline-width: 0;
+  }
+}
