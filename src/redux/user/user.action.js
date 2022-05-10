@@ -26,6 +26,7 @@ export const signIn = (values) => async (dispatch) => {
       payload: { user: decoded_user, token: data.token },
     });
   } catch (err) {
+    alert(JSON.stringify(err.response.data));
     dispatch({ type: SIGN_UP_FAILURE, err: err.response });
   }
 };
@@ -42,6 +43,7 @@ export const signUp = (values) => async (dispatch) => {
       payload: { user: data.user, token: data.token },
     });
   } catch (err) {
+    alert(JSON.stringify(err.response.data));
     dispatch({ type: SIGN_UP_FAILURE, err: err.response });
   }
 };

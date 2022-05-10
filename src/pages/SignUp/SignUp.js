@@ -12,13 +12,24 @@ import Button from '../../components/Button/Button';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { signUp } from '../../redux/user/user.action';
+import InputMask from '../../components/Input/InputMask';
+import NumberMask from '../../components/Input/NumberMask';
 const validationSchema = Yup.object().shape({
   name: Yup.string().required('Name is required'),
-  email: Yup.string().required('Email is required'),
-  password: Yup.string().required('Password is required'),
+  email: Yup.string()
+    .required('Email is required')
+    .email('Please enter a valid email'),
+  password: Yup.string()
+    .required('Password is required')
+    .min(5, 'must be at least 5 characters'),
   phone: Yup.string().required('Phone is required'),
-  pin: Yup.string().required('Pin is required'),
-  dateOfBirth: Yup.string().required('dateOfBirth is required'),
+  pin: Yup.string()
+    .matches(/^[0-9]+$/, 'Must be exactly 7 digits')
+    .max(7, 'Must be exactly 7 digits')
+    .required('Pin is required'),
+  birth_date: Yup.string().required('Required').length(2, 'Invalid Input'),
+  birth_month: Yup.string().required('Required').length(2, 'Invalid Input'),
+  birth_year: Yup.string().required('Required').length(4, 'Invalid Input'),
 });
 export const SignUp = () => {
   let navigate = useNavigate();
@@ -31,12 +42,18 @@ export const SignUp = () => {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm(formOptions);
 
-  const onSubmit = (values) => {
+  const onSubmit = ({ birth_date, birth_month, birth_year, ...rest }) => {
     setLoading(true);
-    dispatch(signUp(values));
+    dispatch(
+      signUp({
+        dateOfBirth: `${birth_month}-${birth_date}-${birth_year}`,
+        ...rest,
+      })
+    );
     setLoading(false);
   };
 
@@ -71,24 +88,54 @@ export const SignUp = () => {
                 label={'Password'}
                 errors={errors.password?.message}
               />
-              <Input
-                register={register}
-                name={'phone'}
-                label={'phone'}
-                errors={errors.phone?.message}
+              <InputMask
+                type={'phone'}
+                label="Phone Number"
+                id={`phone`}
+                name={`phone`}
+                error={errors.phone}
+                control={control}
+                format={'(###) ###-####'}
               />
-              <Input
-                register={register}
-                name={'pin'}
-                label={'pin'}
-                errors={errors.pin?.message}
+              <InputMask
+                type={'pin'}
+                label="pin"
+                id={`pin`}
+                name={`pin`}
+                error={errors.pin}
+                control={control}
+                format={'#######'}
               />
-              <Input
-                register={register}
-                name={'dateOfBirth'}
-                label={'dateOfBirth'}
-                errors={errors.dateOfBirth?.message}
-              />
+              <div style={{ display: 'flex' }}>
+                <NumberMask
+                  type={'bday-month'}
+                  label="Month"
+                  placeholder="MM"
+                  id={`birth_month`}
+                  name={`birth_month`}
+                  control={control}
+                  error={errors.birth_month}
+                />
+                <NumberMask
+                  type={'bday-day'}
+                  label="Day"
+                  placeholder="DD"
+                  id={`birth_date`}
+                  name={`birth_date`}
+                  control={control}
+                  error={errors.birth_date}
+                />
+                <NumberMask
+                  type={'bday-year'}
+                  label="Year"
+                  placeholder="YYYY"
+                  id={`birth_year`}
+                  name={`birth_year`}
+                  control={control}
+                  error={errors.birth_year}
+                />
+              </div>
+
               <Button type={'submit'} isLoading={loading}>
                 Submit
               </Button>
