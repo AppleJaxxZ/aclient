@@ -8,7 +8,7 @@ export const postSignUp = async ({
   pin,
   dateOfBirth,
 }) =>
-  await axios.post('http://localhost:8000/api/auth/register', {
+  await axios.post(`${process.env.REACT_APP_BACKEND}/api/auth/register`, {
     name,
     email,
     password,
@@ -18,7 +18,7 @@ export const postSignUp = async ({
   });
 
 export const postSignIn = async ({ email, password }) =>
-  await axios.post('http://localhost:8000/api/auth/login', {
+  await axios.post(`${process.env.REACT_APP_BACKEND}/api/auth/login`, {
     email,
     password,
   });
