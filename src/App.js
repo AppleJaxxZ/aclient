@@ -11,10 +11,10 @@ const App = () => {
   return (
     <>
       <Routes>
-        <Route element={<ProtectedRoute />}>
+        {/* <Route element={<ProtectedRoute />}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="account" element={<Account />} />
-        </Route>
+        </Route> */}
 
         <Route exact path="/signup" element={<SignUp />} />
         <Route exact path="/login" element={<Login />} />
