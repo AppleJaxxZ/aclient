@@ -8,6 +8,7 @@ export const ProtectedRoute = ({
   children,
 }) => {
   const token = useSelector(({ user }) => user.token);
+
   if (!token) {
     return <Navigate to={redirectPath} replace />;
   }

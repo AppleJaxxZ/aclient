@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { ProtectedRoute } from './routes';
 
@@ -6,8 +6,17 @@ import Login from './pages/Login/Login';
 import SignUp from './pages/SignUp/SignUp';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Account from './pages/Account/Account';
+import { useSelector } from 'react-redux';
+import setAuthToken from './utils/setAuthToken';
 
 const App = () => {
+  const token = useSelector(({ user }) => user.token);
+  useEffect(() => {
+    if (token) {
+      setAuthToken(token);
+    }
+  }, [token]);
+
   return (
     <>
       <Routes>
