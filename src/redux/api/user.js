@@ -31,7 +31,7 @@ export const postSignIn = async ({ email, password }) =>
   });
 
 export const deleteUser = async ({ email, token }) => {
-  return await authAxios.delete(
+  return await axios.delete(
     `${process.env.REACT_APP_BACKEND}/api/auth/deleteaccount`,
     {
       data: {
