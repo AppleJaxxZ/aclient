@@ -93,6 +93,7 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const [mySubscription, setMySubscription] = useState(null);
   const customer_id = useSelector(({ user }) => user.user.customer_id);
+  const user = useSelector(({ user }) => user.user);
   const getmysub = async (customer_id) => {
     return await axios.post(
       `${process.env.REACT_APP_BACKEND}/api/subscription/my-subscription`,
@@ -143,10 +144,28 @@ const Dashboard = () => {
     resolver: yupResolver(validationSchema),
   });
   const onSubmit = async (data) => {
-    alert(JSON.stringify(data));
-    console.log(data);
+    const payment = {
+      email: user.email,
+      payment: {
+        type: 'card',
+        card: {
+          number: data.credit_card_number.replace(/-/g, ''),
+          exp_month: parseInt(data.credit_card_exp_month.replace(/0/g, '')),
+          exp_year: parseInt(data.credit_card_exp_year),
+          cvc: data.credit_card_cvv,
+        },
+      },
+    };
+
+    try {
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_BACKEND}/api/checkout/`,
+        payment
+      );
+      alert(JSON.stringify(data));
+    } catch (err) {}
   };
-  console.log(errors);
+
   return (
     <div className={styles.container}>
       {mySubscription ? (
