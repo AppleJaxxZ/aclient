@@ -2,25 +2,15 @@ import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-export const PublicRoute = ({ component: Component, ...rest }) => {
+export const ProtectedRoute = ({
+  isAllowed,
+  redirectPath = '/login',
+  children,
+}) => {
   const token = useSelector(({ user }) => user.token);
+  if (!token) {
+    return <Navigate to={redirectPath} replace />;
+  }
 
-  return token ? <Outlet /> : <Navigate to="/signup" />;
+  return children ? children : <Outlet />;
 };
-
-// const CanAccessComponent = ({ children, shouldRedirect = true }) => {
-//   if (shouldAllow) {
-//     return children;
-//   }
-//   if (shouldRedirect) {
-//     return (
-//       <Navigate
-//         exact
-//         to={{
-//           pathname: redirectUrl,
-//         }}
-//       />
-//     );
-//   }
-//   return null;
-// };

@@ -49,10 +49,13 @@ export const SignUp = () => {
   const onSubmit = ({ birth_date, birth_month, birth_year, ...rest }) => {
     setLoading(true);
     dispatch(
-      signUp({
-        dateOfBirth: `${birth_month}-${birth_date}-${birth_year}`,
-        ...rest,
-      })
+      signUp(
+        {
+          dateOfBirth: `${birth_month}-${birth_date}-${birth_year}`,
+          ...rest,
+        },
+        navigate
+      )
     );
     setLoading(false);
   };

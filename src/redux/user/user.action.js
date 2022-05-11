@@ -7,41 +7,64 @@ import {
   SIGN_UP_INPROGRESS,
   SIGN_OUT_SUCCESS,
 } from './user.types';
-import { postSignIn, postSignUp } from '../api/user';
+import {
+  deleteUser,
+  postSignIn,
+  postSignUp,
+  postToGetSubscription,
+} from '../api/user';
 
 import jwt_decode from 'jwt-decode';
-import setAuthToken from '../../utils/setAuthToken';
 
-export const signIn = (values) => async (dispatch) => {
+export const signIn = (values, navigate) => async (dispatch) => {
   dispatch({
     type: SIGN_IN_INPROGRESS,
   });
   try {
     const { data } = await postSignIn(values);
-    setAuthToken(data);
+
     const decoded_user = jwt_decode(data.token);
 
     dispatch({
       type: SIGN_IN_SUCCESS,
-      payload: { user: decoded_user, token: data.token },
+      payload: {
+        user: {
+          ...data.user,
+          exp: decoded_user.exp,
+          iat: decoded_user.iat,
+        },
+        token: data.token,
+      },
     });
+    localStorage.setItem('token', data.token);
+    navigate('/dashboard');
   } catch (err) {
     alert(JSON.stringify(err.response.data));
     dispatch({ type: SIGN_UP_FAILURE, err: err.response });
   }
 };
 
-export const signUp = (values) => async (dispatch) => {
+export const signUp = (values, navigate) => async (dispatch) => {
   dispatch({
     type: SIGN_UP_INPROGRESS,
   });
   try {
     const { data } = await postSignUp(values);
-    setAuthToken(data);
+
+    const decoded_user = jwt_decode(data.token);
     dispatch({
       type: SIGN_UP_SUCCESS,
-      payload: { user: data.user, token: data.token },
+      payload: {
+        user: {
+          ...data.user,
+          exp: decoded_user.exp,
+          iat: decoded_user.iat,
+        },
+        token: data.token,
+      },
     });
+    localStorage.setItem('token', data.token);
+    navigate('/dashboard');
   } catch (err) {
     alert(JSON.stringify(err.response.data));
     dispatch({ type: SIGN_UP_FAILURE, err: err.response });
@@ -50,8 +73,29 @@ export const signUp = (values) => async (dispatch) => {
 
 export const signOut = () => async (dispatch) => {
   try {
+    localStorage.removeItem('token');
     dispatch({ type: SIGN_OUT_SUCCESS });
   } catch (err) {
     dispatch({ type: SIGN_UP_FAILURE, err: err.response });
+  }
+};
+
+export const deleteAccount = (email, token) => async (dispatch) => {
+  try {
+    await deleteUser({
+      email,
+    });
+    localStorage.removeItem('token');
+    dispatch({ type: SIGN_OUT_SUCCESS });
+  } catch (err) {
+    dispatch({ type: SIGN_UP_FAILURE, err: err.response });
+  }
+};
+
+export const getSubscription = (customer_id) => async (dispatch) => {
+  try {
+    await postToGetSubscription(customer_id);
+  } catch (err) {
+    console.log(err.response);
   }
 };

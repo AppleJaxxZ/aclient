@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { signIn } from '../../redux/user/user.action';
 const validationSchema = Yup.object().shape({
-  email: Yup.string().required('Email is required'),
+  email: Yup.string().required('Email is required').email(),
   password: Yup.string().required('Password is required'),
 });
 export const Login = () => {
@@ -31,7 +31,7 @@ export const Login = () => {
   } = useForm(formOptions);
 
   const onSubmit = (values) => {
-    dispatch(signIn(values));
+    dispatch(signIn(values, navigate));
   };
 
   return (
