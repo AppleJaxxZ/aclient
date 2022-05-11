@@ -98,7 +98,7 @@ export const SignUp = () => {
                 name={`phone`}
                 error={errors.phone}
                 control={control}
-                format={'(###) ###-####'}
+                format={'###########'}
               />
               <InputMask
                 type={'pin'}
