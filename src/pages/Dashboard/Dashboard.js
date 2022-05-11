@@ -239,7 +239,7 @@ const Dashboard = () => {
         Sign out
       </Button>
       <br />
-      Click here to unSubscribe and Delete account
+
       <br />
       <Button
         onClick={() => {
