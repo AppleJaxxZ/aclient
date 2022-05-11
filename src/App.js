@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { ProtectedRoute } from './routes';
 
 import Login from './pages/Login/Login';
@@ -11,11 +11,11 @@ const App = () => {
   return (
     <>
       <Routes>
-        {/* <Route element={<ProtectedRoute />}>
+        <Route element={<ProtectedRoute />}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="account" element={<Account />} />
-        </Route> */}
-
+        </Route>
+        <Route path="*" element={<Navigate to="/signup" replace />} />
         <Route exact path="/signup" element={<SignUp />} />
         <Route exact path="/login" element={<Login />} />
       </Routes>
