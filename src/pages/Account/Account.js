@@ -10,14 +10,14 @@ const Account = () => {
 
   return (
     <div className={styles.container}>
-      Are you sure ? We will unsubscribe your account and payment will be
-      disclosed
+      Are you sure ? We will unsubscribe your account and all payments will
+      stop.
       <Button
         onClick={() => {
           dispatch(deleteAccount(email));
         }}
       >
-        Delete Account
+        UnSubscribe
       </Button>
     </div>
   );

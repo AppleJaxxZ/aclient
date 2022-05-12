@@ -246,7 +246,7 @@ const Dashboard = () => {
           navigate('/account');
         }}
       >
-        Delete Account
+        UnSubscribe
       </Button>
     </div>
   );

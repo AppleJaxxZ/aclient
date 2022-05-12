@@ -43,15 +43,23 @@ export const SignUp = () => {
     register,
     handleSubmit,
     control,
+
     formState: { errors },
   } = useForm(formOptions);
 
-  const onSubmit = ({ birth_date, birth_month, birth_year, ...rest }) => {
+  const onSubmit = ({
+    birth_date,
+    birth_month,
+    birth_year,
+    phone,
+    ...rest
+  }) => {
     setLoading(true);
     dispatch(
       signUp(
         {
           dateOfBirth: `${birth_month}-${birth_date}-${birth_year}`,
+          phone: phone.replace(/\s/g, ''),
           ...rest,
         },
         navigate

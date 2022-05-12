@@ -82,11 +82,20 @@ export const signOut = () => async (dispatch) => {
 
 export const deleteAccount = (email, token) => async (dispatch) => {
   try {
-    await deleteUser({
+    const { data } = await deleteUser({
       email,
     });
-    localStorage.removeItem('token');
-    dispatch({ type: SIGN_OUT_SUCCESS });
+    if (data.success) {
+      alert('You have unsubscribed! Signing you out...');
+      localStorage.removeItem('token');
+      dispatch({ type: SIGN_OUT_SUCCESS });
+    } else {
+      alert(
+        'You Already unsubscribed Please contact easylanding.software@gmail.com if theres trouble. Signing you out..'
+      );
+      alert(JSON.stringify);
+      localStorage.removeItem('token');
+    }
   } catch (err) {
     dispatch({ type: SIGN_UP_FAILURE, err: err.response });
   }
