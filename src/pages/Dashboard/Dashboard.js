@@ -12,6 +12,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Input from '../../components/Input/Input';
 import * as Yup from 'yup';
 import valid from 'card-validator';
+import toast from "react-hot-toast";
 
 const validationSchema = Yup.object().shape({
   credit_card_number: Yup.string()
@@ -166,9 +167,14 @@ const Dashboard = () => {
       );
       if (data.createdSubscription) {
         setMySubscription(data.createdSubscription.status)
+        toast.success('Payment success!')
+      } else {
+        toast.error('Payment failed. Please check your card details and try again.')
       }
-      console.log(data)
-    } catch (err) { }
+      console.log('This is data', data)
+    } catch (err) {
+      console.log(err.response)
+    }
   };
 
   return (
@@ -176,65 +182,68 @@ const Dashboard = () => {
       {mySubscription ? (
         <h1>Subscription : {mySubscription}</h1>
       ) : (
-        <h1>You currently do not have a subscription</h1>
+        <div className={styles.container}>
+          <h1>You currently do not have a subscription</h1>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <InputMask
+              type={'cc-number'}
+              format="####-####-####-####"
+              name="credit_card_number"
+              id="credit_card_number"
+              label="Credit Card Number"
+              control={control}
+              error={errors.credit_card_number}
+            />
+            <InputMask
+              type={'cc-cvc'}
+              id="credit_card_cvv"
+              name="credit_card_cvv"
+              format="###"
+              label="CVV"
+              control={control}
+              error={errors.credit_card_cvv}
+            />
+            <Input
+              label="Cardholder Name"
+              name={'billing_name'}
+              id="billing_name"
+              register={register}
+            />
+            <InputMask
+              type={'cc-exp'}
+              id="credit_card_exp_month_year"
+              name="credit_card_exp_month_year"
+              format="##/##"
+              label="Expiration Date"
+              control={control}
+              error={errors.credit_card_exp_month_year}
+              onChange={(event) => {
+                const value = event.target.value.split('/').map((v) => v.trim());
+                if (value[0] === '0' || value[0] === '00') {
+                  value[0] = '01';
+                } else if (value[0].split('')[0] > 1) {
+                  value[0] = `0${value[0]}`;
+                } else if (parseInt(value[0]) > 12) {
+                  value[0] = 12;
+                }
+                setValue('credit_card_exp_month', value[0]);
+                setValue('credit_card_exp_year', value[1]);
+              }}
+            />
+            <br />
+            <Button type={'submit'}>Pay</Button>
+          </form>
+        </div>
       )}
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <InputMask
-          type={'cc-number'}
-          format="####-####-####-####"
-          name="credit_card_number"
-          id="credit_card_number"
-          label="Credit Card Number"
-          control={control}
-          error={errors.credit_card_number}
-        />
-        <InputMask
-          type={'cc-cvc'}
-          id="credit_card_cvv"
-          name="credit_card_cvv"
-          format="###"
-          label="CVV"
-          control={control}
-          error={errors.credit_card_cvv}
-        />
-        <Input
-          label="Cardholder Name"
-          name={'billing_name'}
-          id="billing_name"
-          register={register}
-        />
-        <InputMask
-          type={'cc-exp'}
-          id="credit_card_exp_month_year"
-          name="credit_card_exp_month_year"
-          format="##/##"
-          label="Expiration Date"
-          control={control}
-          error={errors.credit_card_exp_month_year}
-          onChange={(event) => {
-            const value = event.target.value.split('/').map((v) => v.trim());
-            if (value[0] === '0' || value[0] === '00') {
-              value[0] = '01';
-            } else if (value[0].split('')[0] > 1) {
-              value[0] = `0${value[0]}`;
-            } else if (parseInt(value[0]) > 12) {
-              value[0] = 12;
-            }
-            setValue('credit_card_exp_month', value[0]);
-            setValue('credit_card_exp_year', value[1]);
-          }}
-        />
-        <br />
-        <Button type={'submit'}>Pay</Button>
-      </form>
+
       <br />
       <Button
         onClick={() => {

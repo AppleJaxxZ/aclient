@@ -14,6 +14,8 @@ import { useDispatch } from 'react-redux';
 import { signUp } from '../../redux/user/user.action';
 import InputMask from '../../components/Input/InputMask';
 import NumberMask from '../../components/Input/NumberMask';
+import ReactTooltip from "react-tooltip";
+
 const validationSchema = Yup.object().shape({
   name: Yup.string().required('Name is required'),
   email: Yup.string()
@@ -22,7 +24,8 @@ const validationSchema = Yup.object().shape({
   password: Yup.string()
     .required('Password is required')
     .min(5, 'must be at least 5 characters'),
-  phone: Yup.string().required('Phone is required'),
+  phone: Yup.string().matches(/^[0-9]+$/, 'Must be exactly 11 digits')
+    .max(11, 'Must be exactly 11 digits starting wtih 1').required('Phone is required'),
   pin: Yup.string()
     .matches(/^[0-9]+$/, 'Must be exactly 7 digits')
     .max(7, 'Must be exactly 7 digits')
@@ -100,6 +103,7 @@ export const SignUp = () => {
                 errors={errors.password?.message}
               />
               <InputMask
+                tip='11 digit phone number starting with 1.  No Spaces or dashes'
                 type={'phone'}
                 label="Phone Number"
                 id={`phone`}
