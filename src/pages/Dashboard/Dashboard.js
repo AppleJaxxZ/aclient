@@ -122,7 +122,8 @@ const Dashboard = () => {
       fetchData();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [mySubscription]);
+  console.log(mySubscription)
 
   const {
     handleSubmit,
@@ -144,6 +145,7 @@ const Dashboard = () => {
     resolver: yupResolver(validationSchema),
   });
   const onSubmit = async (data) => {
+
     const payment = {
       email: user.email,
       payment: {
@@ -162,8 +164,11 @@ const Dashboard = () => {
         `${process.env.REACT_APP_BACKEND}/api/checkout/`,
         payment
       );
-      alert(JSON.stringify(data));
-    } catch (err) {}
+      if (data.createdSubscription) {
+        setMySubscription(data.createdSubscription.status)
+      }
+      console.log(data)
+    } catch (err) { }
   };
 
   return (
