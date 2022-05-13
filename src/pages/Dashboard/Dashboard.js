@@ -12,7 +12,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Input from '../../components/Input/Input';
 import * as Yup from 'yup';
 import valid from 'card-validator';
-import toast from "react-hot-toast";
+import toast from 'react-hot-toast';
 
 const validationSchema = Yup.object().shape({
   credit_card_number: Yup.string()
@@ -124,7 +124,6 @@ const Dashboard = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mySubscription]);
-  console.log(mySubscription)
 
   const {
     handleSubmit,
@@ -146,7 +145,6 @@ const Dashboard = () => {
     resolver: yupResolver(validationSchema),
   });
   const onSubmit = async (data) => {
-
     const payment = {
       email: user.email,
       payment: {
@@ -166,14 +164,16 @@ const Dashboard = () => {
         payment
       );
       if (data.createdSubscription) {
-        setMySubscription(data.createdSubscription.status)
-        toast.success('Payment success!')
+        setMySubscription(data.createdSubscription.status);
+        toast.success('Payment success!');
       } else {
-        toast.error('Payment failed. Please check your card details and try again.')
+        toast.error(
+          'Payment failed. Please check your card details and try again.'
+        );
       }
-      console.log('This is data', data)
+      console.log('This is data', data);
     } catch (err) {
-      console.log(err.response)
+      console.log(err.response);
     }
   };
 
@@ -226,7 +226,9 @@ const Dashboard = () => {
               control={control}
               error={errors.credit_card_exp_month_year}
               onChange={(event) => {
-                const value = event.target.value.split('/').map((v) => v.trim());
+                const value = event.target.value
+                  .split('/')
+                  .map((v) => v.trim());
                 if (value[0] === '0' || value[0] === '00') {
                   value[0] = '01';
                 } else if (value[0].split('')[0] > 1) {
