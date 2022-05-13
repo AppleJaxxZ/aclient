@@ -5,7 +5,7 @@ const Button = ({
   label,
   id,
   variant,
-  isDisabled,
+  isDisabled = false,
   isLoading = false,
   className,
   children,
@@ -14,9 +14,10 @@ const Button = ({
   return (
     <button
       id={id}
-      disabled={isDisabled || isLoading}
+      disabled={isDisabled}
       {...rest}
       className={styles.button}
+      style={isDisabled ? { backgroundColor: 'gray' } : {}}
     >
       {children}
       {isLoading ? (

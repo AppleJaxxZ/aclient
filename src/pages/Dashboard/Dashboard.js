@@ -92,6 +92,8 @@ const validationSchema = Yup.object().shape({
 const Dashboard = () => {
   let navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [loading, setLoading] = useState(false);
   const [mySubscription, setMySubscription] = useState(null);
   const customer_id = useSelector(({ user }) => user.user.customer_id);
   const user = useSelector(({ user }) => user.user);
@@ -145,6 +147,7 @@ const Dashboard = () => {
     resolver: yupResolver(validationSchema),
   });
   const onSubmit = async (data) => {
+    setLoading(true);
     const payment = {
       email: user.email,
       payment: {
@@ -175,6 +178,8 @@ const Dashboard = () => {
     } catch (err) {
       console.log(err.response);
     }
+    setTimeout(() => {}, 500);
+    setLoading(false);
   };
 
   return (
@@ -251,7 +256,11 @@ const Dashboard = () => {
               }}
             />
             <br />
-            <Button type={'submit'}>Pay</Button>
+            {!loading && (
+              <Button type={'submit'} isLoading={loading} isDisabled={loading}>
+                Submit
+              </Button>
+            )}
           </form>
         </div>
       )}

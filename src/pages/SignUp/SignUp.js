@@ -60,7 +60,7 @@ export const SignUp = () => {
     formState: { errors },
   } = useForm(formOptions);
 
-  const onSubmit = ({
+  const onSubmit = async ({
     birth_date,
     birth_month,
     birth_year,
@@ -174,10 +174,15 @@ export const SignUp = () => {
                   />
                 </div>
               </div>
-
-              <Button type={'submit'} isLoading={loading}>
-                Submit
-              </Button>
+              {!loading && (
+                <Button
+                  type={'submit'}
+                  isLoading={loading}
+                  isDisabled={loading}
+                >
+                  Submit
+                </Button>
+              )}
             </form>
             <p>
               Already Have An Account?{' '}
