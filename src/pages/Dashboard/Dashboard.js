@@ -108,6 +108,7 @@ const Dashboard = () => {
       }
     );
   };
+
   useEffect(() => {
     if (localStorage.getItem('token')) {
       const fetchData = async () => {
@@ -126,6 +127,7 @@ const Dashboard = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mySubscription]);
+  useEffect(() => {}, [loading]);
 
   const {
     handleSubmit,

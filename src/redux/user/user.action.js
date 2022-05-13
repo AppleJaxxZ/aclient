@@ -64,7 +64,6 @@ export const signUp = (values, navigate) => async (dispatch) => {
       },
     });
     localStorage.setItem('token', data.token);
-    navigate('/dashboard');
   } catch (err) {
     alert(JSON.stringify(err.response.data));
     dispatch({ type: SIGN_UP_FAILURE, err: err.response });

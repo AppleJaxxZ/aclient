@@ -1,4 +1,4 @@
-import React, { useState } from 'react'; // { useState }
+import React, { useState, useEffect } from 'react'; // { useState }
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -70,17 +70,16 @@ export const SignUp = () => {
     setLoading(true);
 
     dispatch(
-      signUp(
-        {
-          dateOfBirth: `${birth_month}-${birth_date}-${birth_year}`,
-          phone: phone.replace(/\s/g, '').replace(/-/g, ''),
-          ...rest,
-        },
-        navigate
-      )
+      signUp({
+        dateOfBirth: `${birth_month}-${birth_date}-${birth_year}`,
+        phone: phone.replace(/\s/g, '').replace(/-/g, ''),
+        ...rest,
+      })
     );
+    navigate('/dashboard');
     setLoading(false);
   };
+  useEffect(() => {}, [loading]);
 
   return (
     <div className={styles.container}>
@@ -174,7 +173,7 @@ export const SignUp = () => {
                   />
                 </div>
               </div>
-              {!loading && (
+              {loading ? null : (
                 <Button
                   type={'submit'}
                   isLoading={loading}
