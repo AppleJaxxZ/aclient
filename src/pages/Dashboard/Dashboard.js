@@ -179,13 +179,17 @@ const Dashboard = () => {
 
   return (
     <div className={styles.container}>
-      {mySubscription ? (
+      {mySubscription && mySubscription === 'active' ? (
         <h1>Subscription : {mySubscription}</h1>
       ) : (
         <div className={styles.container}>
-          <h1>You currently do not have a subscription</h1>
+          <h1>Subscription : {mySubscription ? mySubscription : 'Inactive'}</h1>
           <br />
-          <h2>Enter your card details and pay 5$ a month,  have UtAlert send you your Aver Health schedule everynight at 9:30pm</h2>
+          <h2>
+            You currently do not have a subscription Enter your card details and
+            pay 5$ a month, have UtAlert send you your Aver Health schedule
+            everynight at 9:30pm
+          </h2>
           <form
             onSubmit={handleSubmit(onSubmit)}
             style={{
