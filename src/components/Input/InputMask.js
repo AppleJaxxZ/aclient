@@ -25,7 +25,14 @@ export const InputMask = (props) => {
 
   return (
     <div className={styles.root}>
-      <label htmlFor={id}>{label}</label>
+      <label
+        htmlFor={id}
+        style={
+          label === 'Averhealth pin' ? { color: 'rgba(99, 152, 219)' } : {}
+        }
+      >
+        {label}
+      </label>
       <Controller
         render={({ field: ControllerField }) => {
           const {

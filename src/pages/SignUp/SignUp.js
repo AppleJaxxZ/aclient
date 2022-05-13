@@ -123,43 +123,56 @@ export const SignUp = () => {
                 control={control}
                 format={'1-###-###-####'}
               />
+
               <InputMask
                 type={'pin'}
-                label="pin"
+                label="Averhealth pin"
                 id={`pin`}
                 name={`pin`}
                 error={errors.pin}
                 control={control}
                 format={'#######'}
               />
-              <div style={{ display: 'flex' }}>
-                <NumberMask
-                  type={'bday-month'}
-                  label="Month"
-                  placeholder="MM"
-                  id={`birth_month`}
-                  name={`birth_month`}
-                  control={control}
-                  error={errors.birth_month}
-                />
-                <NumberMask
-                  type={'bday-day'}
-                  label="Day"
-                  placeholder="DD"
-                  id={`birth_date`}
-                  name={`birth_date`}
-                  control={control}
-                  error={errors.birth_date}
-                />
-                <NumberMask
-                  type={'bday-year'}
-                  label="Year"
-                  placeholder="YYYY"
-                  id={`birth_year`}
-                  name={`birth_year`}
-                  control={control}
-                  error={errors.birth_year}
-                />
+
+              <div>
+                <div
+                  style={{
+                    fontSize: '20px',
+                    marginTop: '10px',
+                    color: 'rgba(99, 152, 219, 0.8784313725)',
+                  }}
+                >
+                  Averhealth Date Of Birth
+                </div>
+                <div style={{ display: 'flex' }}>
+                  <NumberMask
+                    type={'bday-month'}
+                    label="Month"
+                    placeholder="MM"
+                    id={`birth_month`}
+                    name={`birth_month`}
+                    control={control}
+                    error={errors.birth_month}
+                  />
+                  <NumberMask
+                    type={'bday-day'}
+                    label="Day"
+                    placeholder="DD"
+                    id={`birth_date`}
+                    name={`birth_date`}
+                    control={control}
+                    error={errors.birth_date}
+                  />
+                  <NumberMask
+                    type={'bday-year'}
+                    label="Year"
+                    placeholder="YYYY"
+                    id={`birth_year`}
+                    name={`birth_year`}
+                    control={control}
+                    error={errors.birth_year}
+                  />
+                </div>
               </div>
 
               <Button type={'submit'} isLoading={loading}>
