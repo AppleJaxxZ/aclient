@@ -186,9 +186,13 @@ const Dashboard = () => {
           <h1>Subscription : {mySubscription ? mySubscription : 'Inactive'}</h1>
           <br />
           <h2>
-            You currently do not have a subscription Enter your card details and
-            pay 5$ a month, have UtAlert send you your Aver Health schedule
-            everynight at 9:30pm
+            <div>
+              {' '}
+              <span style={{ color: 'rgb(18 85 169)' }}>4.99$</span> A Month
+            </div>{' '}
+            <br />
+            AverHealth text message schedule everynight at 9:30pm
+            <br />
           </h2>
           <form
             onSubmit={handleSubmit(onSubmit)}
