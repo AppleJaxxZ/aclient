@@ -184,6 +184,8 @@ const Dashboard = () => {
       ) : (
         <div className={styles.container}>
           <h1>You currently do not have a subscription</h1>
+          <br />
+          <h2>Enter your card details and pay 5$ a month,  have UtAlert send you your Aver Health schedule everynight at 9:30pm</h2>
           <form
             onSubmit={handleSubmit(onSubmit)}
             style={{
@@ -261,6 +263,15 @@ const Dashboard = () => {
         }}
       >
         UnSubscribe
+      </Button>
+
+      <br />
+      <Button
+        onClick={() => {
+          navigate('/contactUs');
+        }}
+      >
+        Help/Contact Us
       </Button>
     </div>
   );

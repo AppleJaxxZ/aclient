@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import Account from './pages/Account/Account';
 import { useSelector } from 'react-redux';
 import setAuthToken from './utils/setAuthToken';
+import ContactUs from './pages/ContactUs/ContactUs'
 
 
 const App = () => {
@@ -35,6 +36,7 @@ const App = () => {
         <Route path="*" element={<Navigate to="/signup" replace />} />
         <Route exact path="/signup" element={<SignUp />} />
         <Route exact path="/login" element={<Login />} />
+        <Route exact path="/contactUs" element={<ContactUs />} />
       </Routes>
     </>
   );

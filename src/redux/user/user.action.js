@@ -91,7 +91,7 @@ export const deleteAccount = (email, token) => async (dispatch) => {
       dispatch({ type: SIGN_OUT_SUCCESS });
     } else {
       alert(
-        'You Already unsubscribed Please contact easylanding.software@gmail.com if theres trouble. Signing you out..'
+        'You Already unsubscribed Please contact easylandings.software@gmail.com if theres trouble. Signing you out..'
       );
       alert(JSON.stringify);
       localStorage.removeItem('token');
