@@ -78,8 +78,8 @@ export const Login = () => {
         </div>
         <div className={styles.container__inner_container__picture_right_side}>
           <img src={earth} alt="earth" />
-          <h1>United Federation Of Earth!</h1>
-          <h2>Turn Your Ideas Into Reality</h2>
+          <h1>EasyLandings Software</h1>
+          <h2>Change the world one idea at a time.</h2>
         </div>
       </div>
     </div>
